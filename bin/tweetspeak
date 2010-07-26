@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby -w
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+require 'tweet_speak'
+
+input = unless ARGV.empty?
+  ARGV.join(' ')
+else
+  gets
+end
+
+puts TweetSpeak.twittify(input)
