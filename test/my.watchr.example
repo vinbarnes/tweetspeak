@@ -1,0 +1,22 @@
+puts "\n--- watchr initialized ---\n\n"
+
+def cmd() 'ruby '; end
+
+def run_spec(spec)
+  puts "Running #{spec}"
+  system(cmd + spec)
+  puts
+end
+
+watch('^test\/.*_test\.rb') {|md| run_spec(md[0]) }
+watch('^lib/(.*)\.rb') {|md| run_spec("test/#{md[1]}_test.rb") }
+
+# Ctrl-\
+Signal.trap('QUIT') do
+  puts "\n--- Running all tests ---\n"
+  run_all_specs
+  puts
+end
+ 
+# Ctrl-C
+Signal.trap('INT') { abort("\n") }
